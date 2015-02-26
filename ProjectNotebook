@@ -1,3 +1,16 @@
+->26/02/2015
+Selected Normalized Spectral Abundance Factor as one of the measures to calculate the relative abundance. 
+The below paper was referred to which contained a software package called Crux. 
+Crux has a tool called spectral-count which could be used to find the NSAF.
+Ran into problems with the file format. Crux spectral-tools requires input files with specific format (got error msg 'q-values needed in percolator, q-ranker, barista format')
+Decided to ask suggestions for software from the professor.
+Another tool we looked at was OpenMS which can be used to try one of the peak intensity methods. 
+Ran into problems with installation. Another problem was huge sizes of the mxMl files. Decided to ask the professor about file sizes as well.
+
+Paper
+Estimating relative abundances of proteins from shotgun proteomics data - Sean McIlwain, Michael Mathews, Michael S Bereman, Edwin W Rubel, Michael J MacCoss and William Stafford Noble
+
+
 ->24/02/2015
 Met up for discussion. The team decided to each select a project pipeline from the literature and discuss on 26/02.
 The following papers were circulated
