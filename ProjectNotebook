@@ -1,3 +1,91 @@
+->01/03/2015
+Created tsv files with following fields (Protein Name, Peptide Count, Protein Length, Normalized Count) with awk and python
+Protein Name - Name of protein as in fasta file
+Peptide count - Number of peptides for each protein as in the tsv files downloaded from the 'id/' of the iprg site.
+Protein length - length of protein in amino acids as from fasta file from iprg website
+Normalized count - Peptide count/ Protein Length for each protein.
+
+Input: 12 tsv files from iprg site
+
+The tsv files (~ID_1A.tsv and so on) were parsed with the foll awk command.
+
+awk -F"\t" '$10<0.01 { print $8 }' ID_1A.tsv |awk -F, '!z[$1]++{ a[$1]=$0; } END {for (i in a) printf("%s\t%s\n",a[i], z[i])}'>ID_1A_fil.tsv and 
+
+It extracts the protein name based on its qvalue being less than 0.01 then pipes it to another awk snippet which enumerates on protein name, deletes duplicates and writes the output to fileName_fil.tsv file.
+
+Then a tiny python script using Biopython to parse the fasta file to get protein length in amino acids, compare with the filtered tsv file, 
+calculate PeptideCount/ProteinLength and write to a tsv file.
+
+Output:12 tsv files with normalized spectral count
+
+Trying to find how to upload files to github. Turns out you need a local repository. 
+
+->27/02/2015
+Worked on getting Crux to work. Failed miserably. Should try to get to change format of the input files. Decided to work with
+Linux commands and Python to get a Spectral count normalized with protein length. Will try to figure out out measures later.
+
+The Swedish version of Excel on the school computers uses a decimal comma rather than a decimal point. Needed to change the files to read
+Why can't we have a global standard?
+
+Sent and received the below mail from Lukas
+
+ > We want to use  something like 3 pipelines from the literature and one of
+ > our own in order to compare the results from our own pipeline with the ones
+ > from literature and then try to start from the raw data and do the
+ > identification ourselves and then run the same pipelines on that to see how
+ > the results differ. We just want to check if you are ok with this plan? Do
+ > you want us to do less literature pipelines and more of our own? do you
+ > think this plan seems reasonable?
+
+ Sure, you are free to select to implement quite a number of pipelines.
+
+ In the instructions I wrote: "You are free to select if you would like
+ to start-out by reprocessing the raw data from scratch, or if you
+ would like to live with the organizers processing. The real challenge
+ in this exercise is how to think about how to combine the different
+ quantitative levels of peptides into quantitative levels of proteins."
+
+ I mean that. That implies that the selection of pipe-line is less
+ exciting than the selection of strategy to infer quantative levels of
+ proteins from peptides. I do not know how I can say that more clearly.
+ Please stop reading this email and ask more questions if you do not
+ get this.
+
+
+ > Also, do you have any particular software you would like to see us try?
+ > We've found quite a number of toolkits online and are trying to pick some
+ > that are representative of what people actually use. So far we are looking
+ > at Crux, OpenMS, Apex, and Trans proteomic pipeline TPP.
+
+ Anything you like would go here. Including the option to just use the
+ organizers results.
+
+ > Another problem is handling the very large files, especially if we are going
+ > to try to use the raw data files (12 1,3-1,4 gig files). Do you have any
+ > advice on this front? Is there any way to run the files without having to
+ > download them to hard drive?
+
+ A "wget" command issued on the server where you want the data should
+ do the trick.
+
+ > Also, most of the software we've looked at require administrator rights to
+ > install on school computers, we have personal laptops but as we mentioned
+ > the file sizes are a bit too much for our laptops. Is there a way to install
+ > select software on the school computers using admin rights temporarily for
+ > the project?
+
+ Most of the software can be installed in the home directory. Which
+ software do not allow you to do so?
+
+ > Lastly, How far are we expected to have reached in the project for the
+ > comparison of experiences seminar on Tuesday?
+
+ It would be good if you could have one ready result, so that you can
+ start to think about alternative ways to combine peptides.
+
+ Thanks
+ -Lukas
+
 ->26/02/2015
 Selected Normalized Spectral Abundance Factor as one of the measures to calculate the relative abundance. 
 The below paper was referred to which contained a software package called Crux. 
