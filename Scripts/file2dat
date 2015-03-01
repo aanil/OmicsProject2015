@@ -1,0 +1,35 @@
+#!/usr/bin/env python
+
+import sys, tempfile, random, re
+from Bio import SeqIO, AlignIO, Seq, SeqRecord, Phylo
+from Bio.Align import MultipleSeqAlignment
+from Bio.SeqRecord import SeqRecord
+import os, time
+import collections
+import StringIO
+import csv
+
+read = open("/home/anandubuntu/OmicsProject/data/ID_4C_fil.tsv", "rb")
+handle=open("iPRG2015.fasta", "rU")
+w= open("ID_4C_norm.tsv", "w")
+wr=csv.writer(w)
+
+Pname=[]
+Plength=[]
+for record in SeqIO.parse(handle, "fasta"):
+	Pname.append(record.id)
+	Plength.append(len(record))
+	
+#wr.writerows(hexa)
+l=[]
+wr.writerow(['Protein']+['Peptide Count']+['Protein Length']+['Normalized Peptide Count'])
+data =  csv.reader(read, delimiter='\t')
+for row in data:
+	i=Pname.index(row[0])
+	norm = float(row[1])/Plength[i]
+	wr.writerow(row+[Plength[i]]+[norm])
+	
+read.close()
+w.close()    
+     
+
