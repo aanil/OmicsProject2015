@@ -1,4 +1,7 @@
 ->01/03/2015
+
+Got the local repository to work! Was much easier than anticipated.
+
 Created tsv files with following fields (Protein Name, Peptide Count, Protein Length, Normalized Count) with awk and python
 Protein Name - Name of protein as in fasta file
 Peptide count - Number of peptides for each protein as in the tsv files downloaded from the 'id/' of the iprg site.
