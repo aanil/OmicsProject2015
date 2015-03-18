@@ -12,7 +12,7 @@ import csv
 observed=[]
 observable={}
 
-with open("1A_countObserved.tsv", "rb") as read:
+with open("3C_countObserved.tsv", "rb") as read:
 	reader=csv.reader(read, delimiter='\t')
 	for line in reader:
 		observed.append(line)
@@ -24,17 +24,28 @@ with open("countObservablePeptides.txt", "rb") as handle:
 		#observable.append(line)
 		
 empai=[]
+emSum=0
+j=0
 #print observable
 #print observable.index('sp|P53858|BNI4_YEAST')
 for element in observed:
 	if element[0]!='Protein':
-		  empai.append([element[0], (10**(float(element[1])/float(observable[element[0]])))-1])
+		j=(10**(float(element[1])/float(observable[element[0]])))-1
+		empai.append([element[0], j])
+		emSum+=j
 		
 	
 #for i, j  in enumerate(observable):
-#print empai
+#print emSum
+#494.86318518
+#print empai[0]
+for item in empai:
+	item[1]= float(item[1])/emSum
+	#print emSum
+	#i+=1
+#print empai[0]
 
-with open ('t3.tsv', 'wb') as w:
+with open ('3C_empai_norm.tsv', 'wb') as w:
 	wr=csv.writer(w, delimiter='\t')
 	wr.writerows(empai)
 read.close()

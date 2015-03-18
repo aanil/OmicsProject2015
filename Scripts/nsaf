@@ -1,0 +1,49 @@
+#!/usr/bin/env python
+
+import sys, tempfile, random, re
+from Bio import SeqIO, AlignIO, Seq, SeqRecord, Phylo
+from Bio.Align import MultipleSeqAlignment
+from Bio.SeqRecord import SeqRecord
+import os, time
+import collections
+import StringIO
+import csv
+
+protLen={}
+specLen={}
+nsafDict={}
+
+handle=open("iPRG2015.fasta", "rU")
+
+for record in SeqIO.parse(handle, "fasta"):
+	protLen[record.id]=len(record)
+
+with open("2C_nsaf_fil.tsv", "rb") as read1:
+	r1=csv.reader(read1, delimiter='\t')
+	for line in r1:
+		specLen[line[0]]=line[1]
+
+for key in specLen:
+	if key!='Protein':
+		nsafDict[key]=float(specLen[key])/float(protLen[key])
+	
+norm=sum(nsafDict.values())
+l=[]
+
+for key in nsafDict:
+	l.append([key, (float(nsafDict[key])/norm)])
+
+#print l[1]
+
+#wr.writerow(['Protein']+['Peptide Count']+['Protein Length']+['Normalized Peptide Count'])
+
+
+with open ('2C_nsaf_norm.tsv', 'wb') as w:
+	wr=csv.writer(w, delimiter='\t')
+	wr.writerows(l)	
+
+handle.close()
+read1.close()
+w.close()    
+     
+

@@ -8,20 +8,22 @@ import os, time
 import collections
 import StringIO
 import csv
+import scipy
+import numpy
 
 em_A={}
 em_B={}
 em_C={}
 
-with open("4A_empai.tsv", "rb") as read1:
+with open("2A_nsaf_norm.tsv", "rb") as read1:
 	r1=csv.reader(read1, delimiter='\t')
 	for line in r1:
 		em_A[line[0]]=line[1]
-with open("4B_empai.tsv", "rb") as read2:
+with open("2B_nsaf_norm.tsv", "rb") as read2:
 	r2=csv.reader(read2, delimiter='\t')
 	for line in r2:
 		em_B[line[0]]=line[1]
-with open("4C_empai.tsv", "rb") as read3:
+with open("2C_nsaf_norm.tsv", "rb") as read3:
 	r3=csv.reader(read3, delimiter='\t')
 	for line in r3:
 		em_C[line[0]]=line[1]
@@ -39,13 +41,16 @@ avgEm=dict.fromkeys(sharedProt,0)
 wEmpai=[]
 
 for key in avgEm:
-	avgEm[key]=(float(em_A[key])+float(em_B[key])+float(em_C[key]))/3
+	#avgEm[key]=(float(em_A[key])+float(em_B[key])+float(em_C[key]))/3
 	#print avgEm[key]
-	wEmpai.append([key,avgEm[key]])
+	#var=numpy.var([float(em_A[key]),float(em_B[key]),float(em_C[key])], axis=None, dtype=None, out=None, ddof=0, keepdims=False)
+	#print var
+	#wEmpai.append([key,avgEm[key], var])
+	wEmpai.append([key,em_A[key],em_B[key],em_C[key]])
 
 #print wEmpai
 
-with open ('4_empai.tsv', 'wb') as w:
+with open ('2_nsaf.tsv', 'wb') as w:
 	wr=csv.writer(w, delimiter='\t')
 	wr.writerows(wEmpai)
 
