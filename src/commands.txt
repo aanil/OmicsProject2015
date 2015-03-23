@@ -56,3 +56,19 @@ Step 6
 Calculate average empai for each run
 
 python avgEmpai 
+
+
+NSAF
+
+Step 1
+Run to get peptide counts for each protein
+awk -F"\t" '{if(sprintf("%.8f",$10)<0.01) { print $8 }}' ID_1A.tsv |awk -F, '!z[$1]++{ a[$1]=$0; } END {for (i in a) printf("%s\t%s\n",a[i], z[i])}'>1A_nsaf_fil.tsv
+
+Step 2
+Run python nsaf
+
+Step 3
+Run python avgEmpai replacing file names
+
+STep 4
+Run python mergeEmpai replacing file names
